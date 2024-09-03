@@ -9,4 +9,8 @@ load_data.py
   improvedviewer.py 
      takes the idea of the raw_viewer.py and adds logic to check the keystore for user information.
 
-     
+    
+   Make sure to copy application key to application.key and create production.env file with 
+APPLICATION_KEY=
+
+- 
