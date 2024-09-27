@@ -1,6 +1,6 @@
 # Mobile Risk API (MRA) 2.0 Stream Viewer with S3 Integration
 
-This project contains a script to interact with Version 2.0 of the Mobile Risk API (MRA), display event streams, manage user data in a Redis (KeyDB) datastore, and upload event data to Amazon S3.
+This project contains scripts to interact with Version 2.0 of the Mobile Risk API (MRA), display event streams, manage user data in a Redis (KeyDB) datastore, and upload event data to Amazon S3.
 
 ## Version
 2.0 Stream Viewer with User Identifier and S3 Integration
@@ -36,6 +36,19 @@ Usage:
 python improvedviewer-S3.py
 ```
 
+### load_data.py
+
+This script is responsible for loading device data from the Mobile Risk API into the Redis (KeyDB) datastore. It includes the following features:
+
+- Authentication with the Mobile Risk API
+- Fetching device data from the API
+- Storing device data in Redis (KeyDB)
+
+Usage:
+```
+python load_data.py
+```
+
 ## Setup
 
 1. Clone this repository to your local machine.
@@ -60,11 +73,19 @@ python improvedviewer-S3.py
 5. Configure AWS credentials:
    - Set up your AWS credentials using one of the methods described in the AWS documentation (e.g., AWS CLI configuration, environment variables, or IAM roles if running on an EC2 instance).
 
-6. Run `improvedviewer-S3.py` to start viewing the event stream, enriching it with user information, and uploading to S3.
+6. Run `load_data.py` to populate the Redis database with device data:
+   ```
+   python load_data.py
+   ```
+
+7. Run `improvedviewer-S3.py` to start viewing the event stream, enriching it with user information, and uploading to S3:
+   ```
+   python improvedviewer-S3.py
+   ```
 
 ## Maintenance
 
-Ensure that your Redis database is kept up to date with the latest user information. You may need to implement a separate script or process to periodically update this data.
+Ensure that your Redis database is kept up to date with the latest user information. You can periodically run `load_data.py` to refresh the device data in Redis.
 
 ## Security Note
 

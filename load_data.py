@@ -1,6 +1,11 @@
 import requests
 import redis
 import time
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('production.env')
 
 # Configuration
 LOOKOUT_API_URL = "https://api.lookout.com"
@@ -9,12 +14,10 @@ DEVICES_URL = f"{LOOKOUT_API_URL}/mra/api/v2/devices"
 KEYDB_HOST = "127.0.0.1"
 KEYDB_PORT = 6379
 
-# Read the application key from the file
-def load_application_key(file_path="application.key"):
-    with open(file_path, 'r') as file:
-        return file.read().strip()
-
-APPLICATION_KEY = load_application_key()
+# Get the application key from environment variables
+APPLICATION_KEY = os.environ.get('APPLICATION_KEY')
+if not APPLICATION_KEY:
+    raise ValueError("APPLICATION_KEY environment variable is not set")
 
 # Connect to KeyDB
 r = redis.StrictRedis(host=KEYDB_HOST, port=KEYDB_PORT, decode_responses=True)
@@ -74,4 +77,3 @@ if __name__ == "__main__":
     
     get_devices_data(access_token, limit=100)
     print("Device data has been stored in KeyDB.")
-
