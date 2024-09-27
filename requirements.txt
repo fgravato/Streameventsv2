@@ -1,0 +1,6 @@
+redis
+requests
+boto3
+python-dotenv
+sseclient-py
+colorama
